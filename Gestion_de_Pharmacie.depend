@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1663430704 source:c:\users\conan k\documents\projet\gestion_de_pharmacie\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1663435561 source:c:\users\conan k\documents\projet\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
