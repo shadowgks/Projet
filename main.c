@@ -23,7 +23,8 @@ void OperationProduits(struct produit p[100]){
         printf("3 - Supprimer Un Produit\n");
         printf("4 - Afficher Les Produits\n");
         printf("5 - Trier Un Produit\n");
-        printf("6 - Quitter De Programme\n");
+        printf("6 - Acheter le Produit\n");
+        printf("7 - Quitter De Programme\n");
         scanf("%d",&OP);
 
 
@@ -44,11 +45,14 @@ void OperationProduits(struct produit p[100]){
                 operationTrier(p);
                 break;
             case 6:
+                acheterProduit(p);
+                break;
+            case 7:
                 printf("By by\n");
                 break;
         }
 
-    }while(OP != 6);
+    }while(OP != 7);
 
 }
 //ajouterProduits
@@ -130,8 +134,10 @@ void operationTrier(struct produit p[100]){
 }
 
 //Function mettre à jour la quantité après avoir introduit le code produit
-void acheterProduit(struct produit p[100], int c){
-    int k,N,count;
+void acheterProduit(struct produit p[100]){
+    int N,count;
+    double c;
+    float k;
     //Time Current
     time_t currentTime;
     printf("Donnez Le Code Produit: ");
@@ -142,7 +148,7 @@ void acheterProduit(struct produit p[100], int c){
             scanf("%d",&N);
                 if(p[i].quantite >= N){
                     k = (p[i].prix * N) / (p[i].quantite);
-                    p[i].prix += k;
+                    p[i].prix -= k;
                     p[i].quantite -= N;
 
                     //time Acheter
@@ -152,10 +158,10 @@ void acheterProduit(struct produit p[100], int c){
                     count = 1;
                 }
        }else{
-            count = 2;
+            count = 0;
        }
        if(count == 1) printf("La Quantite n'est pas suffisante");
-       if(count == 2) printf("Le code N'existe pas dans la liste des produit");
+       if(count == 0) printf("Le code N'existe pas dans la liste des produit");
     }
 }
 ////Recherche les Produits
