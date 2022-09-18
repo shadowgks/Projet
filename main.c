@@ -70,7 +70,7 @@ void ajouterProduits(struct produit p[100],int N){
 //afficherProduit
 void afficherProduit(struct produit p[100]){
     //afficher
-    printf("\t\t\t\tPorduit\t\tCode\tNom\tQuantitie\tPrix\n");
+    printf("\n\t\t\t\tPorduit\t\tCode\tNom\tQuantitie\tPrix\n");
     printf("\t\t\t\t------------------------------------------------------------\n");
     for(int j=0; j<numTotalP; j++){
         printf("\t\t\t\t%d\t\t%d\t%s\t%d\t\t%.2f\n",j+1,p[j].code,p[j].nom,p[j].quantite,p[j].prix);
@@ -130,28 +130,32 @@ void operationTrier(struct produit p[100]){
 }
 
 //Function mettre à jour la quantité après avoir introduit le code produit
-void acheterProduit(struct produit p[100], int numTotal){
-    int c,k;
-    int N;
+void acheterProduit(struct produit p[100], int c){
+    int k,N,count;
     //Time Current
     time_t currentTime;
     printf("Donnez Le Code Produit: ");
     scanf("%d",&c);
-    //Function Recherche
-    printf("Donnez le nombre de ce produit qui a vendue: ");
-    scanf("%d",&N);
-    for(int i=0; i<numTotal; i++){
-       if((c==p[i].code) && (p[i].quantite >= N)){
-            k = (p[i].prix * N) / (p[i].quantite);
-            p[i].prix = p[i].prix - k;
-            p[i].quantite-=N;
+    for(int i=0; i<numTotalP; i++){
+       if(c == p[i].code){
+            printf("Donnez le nombre de ce produit qui a vendue: ");
+            scanf("%d",&N);
+                if(p[i].quantite >= N){
+                    k = (p[i].prix * N) / (p[i].quantite);
+                    p[i].prix += k;
+                    p[i].quantite -= N;
 
-            //time Acheter
-            time(&currentTime);
-            printf("%s\n",ctime(&currentTime));
+                    //time Acheter
+                    time(&currentTime);
+                    printf("%s\n",ctime(&currentTime));
+                }else{
+                    count = 1;
+                }
        }else{
-            printf("Le code N'existe pas dans la liste des produit ou La Quantite n'est pas suffisante");
+            count = 2;
        }
+       if(count == 1) printf("La Quantite n'est pas suffisante");
+       if(count == 2) printf("Le code N'existe pas dans la liste des produit");
     }
 }
 ////Recherche les Produits
@@ -182,7 +186,8 @@ void quantiteP(struct produit p[100], int numTotalP, double q){
         }
     }
 }
-//void Etat du stock
+//Etat du stock
+
 
 int main()
 {
