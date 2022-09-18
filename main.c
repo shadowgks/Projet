@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 //Structures Section
 struct produit{
@@ -61,10 +62,10 @@ void ajouterProduits(struct produit p[100],int N){
         scanf("%d",&p[i].quantite);
         printf("Donnez Le Prix Produit: ");
         scanf("%f",&p[i].prix);
-        p[i].prix += 0.15 * p[i].prix;
+        p[i].prix += 0.15 * p[i].prix; //TTC 15%
     }
 }
-//afficherPreduit
+//afficherProduit
 void afficherProduit(struct produit p[100],int N){
     //afficher
     for(int j=0; j<N; j++){
@@ -99,7 +100,7 @@ void orderPrix(struct produit p[100],int count){
         }
     }
 }
-
+//Function operationTrier
 void operationTrier(struct produit p[100]){
     int op;
     int count = 2;
@@ -118,6 +119,7 @@ void operationTrier(struct produit p[100]){
             afficherProduit(p,count);
             break;
         case 3:
+            system("cls");
             OperationProduits(p);
             break;
     }
@@ -126,18 +128,27 @@ void operationTrier(struct produit p[100]){
 
 //Function mettre à jour la quantité après avoir introduit le code produit
 void acheterProduit(struct produit p[100], int numTotal){
-    int c;
+    int c,k;
     int N;
+    //Time Current
+    time_t currentTime;
     printf("Donnez Le Code Produit: ");
     scanf("%d",&c);
-    //Function Recherch
+    //Function Recherche
     printf("Donnez le nombre de ce produit qui a vendue: ");
     scanf("%d",&N);
     for(int i=0; i<numTotal; i++){
-       if((c==p[i].code) && (p[i].quantite >= N))
+       if((c==p[i].code) && (p[i].quantite >= N)){
+            k = (p[i].prix * N) / (p[i].quantite);
+            p[i].prix = p[i].prix - k;
             p[i].quantite-=N;
-       else
+
+            //time Acheter
+            time(&currentTime);
+            printf("%s\n",ctime(&currentTime));
+       }else{
             printf("Le code N'existe pas dans la liste des produit ou La Quantite n'est pas suffisante");
+       }
     }
 
 
