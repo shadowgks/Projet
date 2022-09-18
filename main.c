@@ -16,12 +16,12 @@ void OperationProduits(struct produit p[100]){
     int N,OP;
     do{
         printf("Choisir une operation:\n");
-        printf("1-Ajouter Un Produit\n");
-        printf("2-Modifier Un Produit\n");
-        printf("3-Supprimer Un Produit\n");
-        printf("4-Afficher Les Produits\n");
-        printf("5-Trier Un Produit\n");
-        printf("6-Quitter De Programme\n");
+        printf("1 - Ajouter Un Produit\n");
+        printf("2 - Modifier Un Produit\n");
+        printf("3 - Supprimer Un Produit\n");
+        printf("4 - Afficher Les Produits\n");
+        printf("5 - Trier Un Produit\n");
+        printf("6 - Quitter De Programme\n");
         scanf("%d",&OP);
 
 
@@ -39,7 +39,7 @@ void OperationProduits(struct produit p[100]){
                 afficherProduit(p,N);
                 break;
             case 5:
-                OperationTrier(p);
+                operationTrier(p);
                 break;
             case 6:
                 printf("By by\n");
@@ -100,22 +100,28 @@ void orderPrix(struct produit p[100],int count){
     }
 }
 
-void OperationTrier(struct produit p[100]){
+void operationTrier(struct produit p[100]){
     int op;
     int count = 2;
     do{
-    printf("1-L’ordre Alphabetique Croissant Du Nom:\n");
-    printf("2-L’ordre Decroissant Du Prix:");
+    printf("1 - L’ordre Alphabetique Croissant Du Nom:\n");
+    printf("2 - L’ordre Decroissant Du Prix:\n");
+    printf("3 - Back! Menu\n");
     scanf("%d",&op);
     switch(op){
         case 1:
             orderAlpha(p,count);
+            afficherProduit(p,count);
             break;
         case 2:
             orderPrix(p,count);
+            afficherProduit(p,count);
+            break;
+        case 3:
+            OperationProduits(p);
             break;
     }
-    }while(op != 2);
+    }while(op != 3);
 }
 
 //Function mettre à jour la quantité après avoir introduit le code produit
