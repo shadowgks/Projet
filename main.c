@@ -11,6 +11,7 @@ struct produit{
     char nom[30];
     int quantite;
     float prix;
+    time_t time;
 };
 
 //OperationProduits
@@ -74,10 +75,10 @@ void ajouterProduits(struct produit p[100],int N){
 //afficherProduit
 void afficherProduit(struct produit p[100]){
     //afficher
-    printf("\n\t\t\t\tPorduit\t\tCode\tNom\tQuantitie\tPrix\n");
+    printf("\n\t\t\t\tPorduit\t\tCode\tNom\tQuantitie\tPrix\tDate Achate\n");
     printf("\t\t\t\t------------------------------------------------------------\n");
     for(int j=0; j<numTotalP; j++){
-        printf("\t\t\t\t%d\t\t%s\t%s\t%d\t\t%.2fDH\n",j+1,p[j].code,p[j].nom,p[j].quantite,p[j].prix);
+        printf("\t\t\t\t%d\t\t%s\t%s\t%d\t\t%.2fDH\t%s\n",j+1,p[j].code,p[j].nom,p[j].quantite,p[j].prix,p[j].time);
     }
 }
 //Function l’ordre alphabétique croissant du nom.
@@ -151,20 +152,20 @@ void acheterProduit(struct produit p[100]){
                     p[i].prix -= k;
                     p[i].quantite -= N;
 
-                    printf("\n\t\t\t\t\tCode\tNom\tQuantitie\tPrix\n");
+                    printf("\n\t\t\t\t\tCode\tNom\tQuantitie\tPrix\tDate Achate\n");
                     printf("\t\t\t\t------------------------------------------------------------\n");
                     printf("\t\t\t\t\t%s\t%s\t%d\t\t%.2fDH\n",p[i].code,p[i].nom,p[i].quantite,p[i].prix);
                     //time Acheter
                     time(&currentTime);
+                    p[i].time = ctime(&currentTime);
                     printf("\t\t\t\t\t%s\n",ctime(&currentTime));
 
                 }else{
                     count = 1;
-                    break;
                 }
        }else{
             count = 2;
-            break;
+
        }
        if(count == 1) printf("La Quantite n'est pas suffisante\n");
        if(count == 2) printf("Le code N'existe pas dans la liste des produit\n");
