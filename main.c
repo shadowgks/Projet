@@ -27,7 +27,7 @@ void OperationProduits(){
     do{
         printf("Choisir une operation:\n");
         printf("1 - Ajouter Un Produit\n");
-        printf("2 - Modifier Un Produit\n");
+        printf("2 - Rechercher Un Produit\n");
         printf("3 - Supprimer Un Produit\n");
         printf("4 - Afficher Les Produits\n");
         printf("5 - Trier Un Produit\n");
@@ -43,6 +43,7 @@ void OperationProduits(){
                 ajouterProduits(N);
                 break;
             case 2:
+                rechercheProduits();
                 break;
             case 3:
                 break;
@@ -182,9 +183,29 @@ void acheterProduit(){
 
 }
 
-////Recherche les Produits
-//void rechercheProduits(struct produit p[100]){
-//}
+//Recherche les Produits
+void rechercheProduits(){
+    int i;
+    char c[14];
+    struct produit pSearch;
+    printf("Entrez le code produit: ");
+    scanf("%s",c);
+    for(i=0; i<numTotalP; i++){
+        if(strcmp(c , p[i].code) == 0){
+            strcpy(pSearch.code,p[i].code);
+            strcpy(pSearch.nom,p[i].nom);
+            pSearch.quantite=p[i].quantite;
+            pSearch.prix=p[i].prix;
+
+            //Affichage Recherche
+            printf("\n\t\tCode\tNom\tQuantitie\tPrix\t\n");
+            printf("\t\t--------------------------------------------------------------------------\n");
+            printf("\t\t%s\t%s\t%d\t\t%.2fDH\n",pSearch.code,pSearch.nom,pSearch.quantite,pSearch.prix);
+        }else{
+            printf("Le code N'existe pas dans la liste des produit!");
+        }
+    }
+}
 
 ////Function codeP
 //void codeP(struct produit p[100], int numTotalP, char c){
