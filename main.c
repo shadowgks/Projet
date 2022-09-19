@@ -29,31 +29,37 @@ void OperationProduits(){
         printf("7 - Quitter De Programme\n");
         scanf("%d",&OP);
 
-
         switch(OP){
             case 1:
+                system("cls");
                 printf("Combien de produits souhaitez-vous saisir ?: ");
                 scanf("%d",&N);
                 ajouterProduits(N);
                 break;
             case 2:
+                system("cls");
                 OperationRechercheProduits();
                 break;
             case 3:
                 break;
             case 4:
+                system("cls");
                 afficherProduit(N);
                 break;
             case 5:
+                system("cls");
                 operationTrier();
                 break;
             case 6:
+                system("cls");
                 acheterProduit();
                 break;
             case 7:
-                printf("By by\n");
+                printf("Au Revoire :)\n");
                 break;
-
+            default:
+                system("cls");
+                printf("Numero de Operation Pas Correct!!!\n");
         }
 
     }while(OP != 7);
@@ -122,10 +128,12 @@ void operationTrier(){
     scanf("%d",&op);
     switch(op){
         case 1:
+            system("cls");
             orderAlpha();
             afficherProduit();
             break;
         case 2:
+            system("cls");
             orderPrix();
             afficherProduit();
             break;
@@ -166,13 +174,11 @@ void acheterProduit(){
                     printf("\t\t%d\t\t%s\t%d\t\t%s\n",i+1,p[i].code,p[i].quantite,p[i].time);
 
                 }else{
-                    count = 1;
+                    printf("La Quantite n'est pas suffisante\n");
                 }
        }else{
-            count = 2;
+            printf("Le code N'existe pas dans la liste des produit\n");
        }
-       if(count == 1) printf("La Quantite n'est pas suffisante\n");
-       if(count == 2) printf("Le code N'existe pas dans la liste des produit\n");
     }
 
 }
@@ -188,9 +194,11 @@ void OperationRechercheProduits(){
 
         switch(op){
         case 1:
+            system("cls");
             codeP();
             break;
         case 2:
+            system("cls");
             quantiteP();
             break;
         case 3:
@@ -215,10 +223,10 @@ void codeP(){
             printf("Code: %s\nNom: %s\nQuantitie: %d\nPrix: %.2f\n",p[i].code,p[i].nom,p[i].quantite,p[i].prix);
             break;
         }
+        else{
+            printf("Le code N'existe pas dans la liste des produit!");
+        }
     }
-//        else{
-//            printf("Le code N'existe pas dans la liste des produit!");
-//        }
 
 }
 //Function quantiteP
@@ -228,8 +236,7 @@ void quantiteP(){
     scanf("%d",&q);
     for(i=0; i<numTotalP; i++){
         if(q == p[i].quantite){
-            printf("Code: %d\nNom: %s\nQuantitie: %d\nPrix: %.2f\n",p[i].code,p[i].nom,p[i].quantite,p[i].prix);
-            break;
+            printf("Code: %s\nNom: %s\nQuantitie: %d\nPrix: %.2f\n",p[i].code,p[i].nom,p[i].quantite,p[i].prix);
         }
     }
 }
