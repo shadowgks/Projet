@@ -3,17 +3,22 @@
 #include <string.h>
 #include <time.h>
 
+
 int numTotalP = 0;
+int numTotalV = 0;
 //Structures Section
 struct produit{
     //Members
-    char code[14];
-    char nom[30];
+    char code[14], nom[30], time[30];
     int quantite;
     float prix;
-    time_t time;
 };
 
+struct produitVendu{
+    char code[14], time[30];
+    int quantite;
+    struct produit p;
+};
 //OperationProduits
 void OperationProduits(struct produit p[100]){
     int N,OP;
@@ -59,7 +64,7 @@ void OperationProduits(struct produit p[100]){
 //ajouterProduits
 void ajouterProduits(struct produit p[100],int N){
     //ajouter
-    for(int i=numTotalP; i<numTotalP+N; i++){
+    for(int i=numTotalP; i<N+numTotalP; i++){
         printf("\nDonnez Le Code Produit: ");
         scanf("%s",p[i].code);
         printf("Donnez Le Nom Produit: ");
@@ -75,10 +80,10 @@ void ajouterProduits(struct produit p[100],int N){
 //afficherProduit
 void afficherProduit(struct produit p[100]){
     //afficher
-    printf("\n\t\t\t\tPorduit\t\tCode\tNom\tQuantitie\tPrix\tDate Achate\n");
-    printf("\t\t\t\t------------------------------------------------------------\n");
+    printf("\n\t\tPorduit\t\tCode\tNom\tQuantitie\tPrix\t\n");
+    printf("\t\t--------------------------------------------------------------------------\n");
     for(int j=0; j<numTotalP; j++){
-        printf("\t\t\t\t%d\t\t%s\t%s\t%d\t\t%.2fDH\t%s\n",j+1,p[j].code,p[j].nom,p[j].quantite,p[j].prix,p[j].time);
+        printf("\t\t%d\t\t%s\t%s\t%d\t\t%.2fDH\n",j+1,p[j].code,p[j].nom,p[j].quantite,p[j].prix);
     }
 }
 //Function l’ordre alphabétique croissant du nom.
@@ -95,7 +100,7 @@ void orderAlpha(struct produit p[100]){
         }
     }
 }
-//l’ordre  décroissant du prix. //Triage par pivot
+//l’ordre  décroissant du prix. //Triage par bulle
 void orderPrix(struct produit p[100]){
     int i,j;
     struct produit X;
@@ -136,69 +141,79 @@ void operationTrier(struct produit p[100]){
 
 //Function mettre à jour la quantité après avoir introduit le code produit
 void acheterProduit(struct produit p[100]){
-    int N,count;
+    int N,count,i;
     char c[14];
     float k=0;
-    //Time Current
     time_t currentTime;
+    struct produit pV[100];
     printf("Donnez Le Code Produit: ");
     scanf("%s",c);
-    for(int i=0; i<numTotalP; i++){
+    for(i=0; i<numTotalP; i++){
        if(strcmp(c,p[i].code) == 0){ // c == code return value 0
             printf("Donnez le nombre de ce produit qui a vendue: ");
             scanf("%d",&N);
-                if(p[i].quantite >= N){
-                    k = (p[i].prix * N) / (p[i].quantite);
-                    p[i].prix -= k;
+                if(N <= p[i].quantite){
+                    //k = (p[i].prix * N) / (p[i].quantite);
+                    //p[i].prix -= k;
                     p[i].quantite -= N;
 
-                    printf("\n\t\t\t\t\tCode\tNom\tQuantitie\tPrix\tDate Achate\n");
-                    printf("\t\t\t\t------------------------------------------------------------\n");
-                    printf("\t\t\t\t\t%s\t%s\t%d\t\t%.2fDH\n",p[i].code,p[i].nom,p[i].quantite,p[i].prix);
+                    strcpy(pV[i].code , p[i].code);
+                    pV[i].quantite = p[i].quantite;
+                    afficherAchate(pV);
+
                     //time Acheter
-                    time(&currentTime);
-                    p[i].time = ctime(&currentTime);
-                    printf("\t\t\t\t\t%s\n",ctime(&currentTime));
+//                    time(&currentTime);
+//                    strcpy(p[i].time , ctime(&currentTime));
+//                    printf("\t\t\t\t\t%s\n",p[i].time);
 
                 }else{
                     count = 1;
                 }
        }else{
             count = 2;
-
        }
        if(count == 1) printf("La Quantite n'est pas suffisante\n");
        if(count == 2) printf("Le code N'existe pas dans la liste des produit\n");
     }
+
 }
+void afficherAchate(struct produit pV[100]){
+    printf("\n\t\tPorduit\t\tCode\tQuantitie\t\n");
+    printf("\t\t---------------------------------------------------\n");
+    for(int j=1; j<numTotalV; j++){
+    printf("\t\t%d\t\t%s\t%d\t\n",j+1,pV[j].code,pV[j].quantite);
+    }
+    numTotalV++;
+}
+
 ////Recherche les Produits
 //void rechercheProduits(struct produit p[100]){
 //}
 
-//Function codeP
-void codeP(struct produit p[100], int numTotalP, char c){
-    int i;
-    printf("Donnez le code Produit: ");
-    scanf("%s",&c);
-    for(i=0; i<numTotalP; i++){
-        if(c == p[i].code){
-            printf("Code: %d\nNom: %s\nQuantitie: %d\nPrix: %.2f\n",p[i].code,p[i].nom,p[i].quantite,p[i].prix);
-            break;
-        }
-    }
-}
-//Function quantiteP
-void quantiteP(struct produit p[100], int numTotalP, double q){
-    int i;
-    printf("Donnez la Quantite Produit: ");
-    scanf("%d",&q);
-    for(i=0; i<numTotalP; i++){
-        if(q == p[i].quantite){
-            printf("Code: %d\nNom: %s\nQuantitie: %d\nPrix: %.2f\n",p[i].code,p[i].nom,p[i].quantite,p[i].prix);
-            break;
-        }
-    }
-}
+////Function codeP
+//void codeP(struct produit p[100], int numTotalP, char c){
+//    int i;
+//    printf("Donnez le code Produit: ");
+//    scanf("%s",&c);
+//    for(i=0; i<numTotalP; i++){
+//        if(c == p[i].code){
+//            printf("Code: %d\nNom: %s\nQuantitie: %d\nPrix: %.2f\n",p[i].code,p[i].nom,p[i].quantite,p[i].prix);
+//            break;
+//        }
+//    }
+//}
+////Function quantiteP
+//void quantiteP(struct produit p[100], int numTotalP, double q){
+//    int i;
+//    printf("Donnez la Quantite Produit: ");
+//    scanf("%d",&q);
+//    for(i=0; i<numTotalP; i++){
+//        if(q == p[i].quantite){
+//            printf("Code: %d\nNom: %s\nQuantitie: %d\nPrix: %.2f\n",p[i].code,p[i].nom,p[i].quantite,p[i].prix);
+//            break;
+//        }
+//    }
+//}
 //Etat du stock
 
 
