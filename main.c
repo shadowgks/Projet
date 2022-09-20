@@ -82,8 +82,8 @@ void OperationProduits(){
             printf("Choise Correcte Operation!!!\n");
         }
     }while(OP != 9);
-
 }
+
 //ajouter one produit
 void ajouterOneProduits(){
     //ajouter
@@ -105,6 +105,7 @@ void ajouterOneProduits(){
             printf("Cette code a deja ete annonces!!!");
         }
 }
+
 //ajouterProduits Plussier
 void ajouterProduits(int N){
     //ajouter
@@ -138,6 +139,7 @@ int checkCode(char c[]){
     }
     return test;
 }
+
 //afficherProduit
 void afficherProduit(){
     //afficher
@@ -147,6 +149,7 @@ void afficherProduit(){
         printf("\t\t%d\t\t%s\t%s\t%d\t\t%.2fDH\n",j+1,p[j].code,p[j].nom,p[j].quantite,p[j].prix);
     }
 }
+
 //Function l’ordre alphabétique croissant du nom.
 void orderAlpha(){
     int i,j;
@@ -161,6 +164,7 @@ void orderAlpha(){
         }
     }
 }
+
 //l’ordre décroissant du prix. //Triage par bulle
 void orderPrix(){
     int i,j;
@@ -175,6 +179,7 @@ void orderPrix(){
         }
     }
 }
+
 //operationTrier
 void operationTrier(){
     int op;
@@ -228,7 +233,7 @@ void acheterProduit(){
 
                     //time Acheter
                     time(&currentTime);
-                    strcpy(pV[produitV].time , ctime(&currentTime));
+                    strcpy(pV[produitV].time, ctime(&currentTime));
                     produitV++;
 
 
@@ -241,6 +246,7 @@ void acheterProduit(){
     }
 
 }
+
 //Afficher Vender
 void afficherVender(){
     printf("\n\t\tPorduit\t\tCode\tQuantitie\t\tDate Acheter\n");
@@ -318,6 +324,7 @@ void quantiteP(){
         }
     }
 }
+
 //Etat du stock
 void etatStock(){
     for(int i=0; i<numTotalP; i++){
@@ -345,6 +352,7 @@ void alimenterStock(){
         }
     }
 }
+
 //Supprimer la produit
 void supprimerP(){
     int pos=0;
@@ -362,6 +370,8 @@ void supprimerP(){
         }
         numTotalP--;
 }
+
+//Main
 int main()
 {
     OperationProduits();
