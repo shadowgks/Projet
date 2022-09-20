@@ -67,20 +67,37 @@ void OperationProduits(){
 }
 //ajouterProduits
 void ajouterProduits(int N){
-    char c[14];
     //ajouter
-    for(int i=numTotalP; i<N+numTotalP; i++){
+    for(int i=0; i<N; i++){
                 printf("\nDonnez Le Code Produit: ");
-                scanf("%s",p[i].code);
-                printf("Donnez Le Nom Produit: ");
-                scanf("%s",p[i].nom); //Because Ineed Space
-                printf("Donnez Le Quantitie Produit: ");
-                scanf("%d",&p[i].quantite);
-                printf("Donnez Le Prix Produit: ");
-                scanf("%f",&p[i].prix);
-                p[i].prix += 0.15 * p[i].prix; //TTC 15%
-            }
-    numTotalP += N;
+                scanf("%s",p[numTotalP].code);
+                //checkCode!
+                int test = checkCode(p[numTotalP].code);
+                if(test == 0){
+                    printf("Donnez Le Nom Produit: ");
+                    scanf("%s",p[numTotalP].nom); //Because Ineed Space
+                    printf("Donnez Le Quantitie Produit: ");
+                    scanf("%d",&p[numTotalP].quantite);
+                    printf("Donnez Le Prix Produit: ");
+                    scanf("%f",&p[numTotalP].prix);
+                    p[numTotalP].prix += 0.15 * p[numTotalP].prix; //TTC 15%
+                    numTotalP ++;
+
+                }else{
+                    printf("Cette code a deja ete annonces!!!");
+                }
+        }
+}
+
+//Check code
+int checkCode(char c[]){
+    int i,test = 0;
+    for(i=0; i<numTotalP; i++){
+        if(strcmp(c , p[i].code) == 0){
+            test++;
+        }
+    }
+    return test;
 }
 //afficherProduit
 void afficherProduit(){
@@ -253,6 +270,10 @@ void etatStock(){
             printf("Code: %s\nNom: %s\nQuantitie: %d\nPrix: %.2f\n",p[i].code,p[i].nom,p[i].quantite,p[i].prix);
         }
     }
+}
+//Alimenter le stock
+void alimenterStock(){
+
 }
 
 
