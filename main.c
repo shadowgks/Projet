@@ -36,7 +36,8 @@ void OperationProduits(){
         printf("6 - Trier Un Produit\n");
         printf("7 - Acheter le Produit\n");
         printf("8 - Afficher le Produits Vender\n");
-        printf("9 - Quitter De Programme\n");
+        printf("9 - Total Prix Vendus\n");
+        printf("10 - Quitter De Programme\n");
         scanf("%d",&OP);
 
         switch(OP){
@@ -75,13 +76,17 @@ void OperationProduits(){
                 break;
             case 9:
                 system("cls");
+                prixTotalVendus();
+                break;
+            case 10:
+                system("cls");
                 printf("Au Revoire :)\n");
                 break;
             default:
             system("cls");
             printf("Choise Correcte Operation!!!\n");
         }
-    }while(OP != 9);
+    }while(OP != 10);
 }
 
 //ajouter one produit
@@ -143,10 +148,10 @@ int checkCode(char c[]){
 //afficherProduit
 void afficherProduit(){
     //afficher
-    printf("\n\t\tPorduit\t\tCode\tNom\tQuantitie\tPrix\t\n");
+    printf("\n\t\tPorduit\t\tCode\tNom\t\tQuantitie\tPrix\t\n");
     printf("\t\t--------------------------------------------------------------------------\n");
     for(int j=0; j<numTotalP; j++){
-        printf("\t\t%d\t\t%s\t%s\t%d\t\t%.2fDH\n",j+1,p[j].code,p[j].nom,p[j].quantite,p[j].prix);
+        printf("\t\t%d\t\t%s\t%s\t\t%d\t\t%.2fDH\n",j+1,p[j].code,p[j].nom,p[j].quantite,p[j].prix);
     }
 }
 
@@ -375,6 +380,22 @@ void supprimerP(){
 
 //Statistique de vente
 //total des prix des produits vendus
+void prixTotalVendus(){
+    float prixTotal = 1;
+    if(produitV > 0){
+
+        for(int i=0; i<produitV; i++){
+            if(strcmp(pV[i].code,p[i].code)==0){
+              prixTotal +=  pV[i].quantite * p[i].prix;
+            }
+        }
+        printf("Total Prix Vendus: %.2f",prixTotal);
+
+    }else{
+        printf("Prix Vendus Vide!!!");
+    }
+
+}
 
 
 //Main
