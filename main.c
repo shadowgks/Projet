@@ -67,6 +67,7 @@ void OperationProduits(){
                 afficherVender();
                 break;
             case 8:
+                system("cls");
                 printf("Au Revoire :)\n");
                 break;
             default:
@@ -249,6 +250,9 @@ void OperationRechercheProduits(){
             etatStock();
             break;
         case 4:
+            alimenterStock();
+            break;
+        case 5:
             system("cls");
             OperationProduits();
             break;
@@ -256,7 +260,7 @@ void OperationRechercheProduits(){
             system("cls");
             printf("Choise Correcte Operation!!!\n");
         }
-    }while(op != 4);
+    }while(op != 5);
 
 }
 
@@ -276,6 +280,20 @@ void codeP(){
         }
     }
 
+}
+void supprimerPrduite(){
+    int i;
+    char c[14];
+    printf("Entrez la Code Produit: ");
+    scanf("%s",c);
+    for(i=0; i<numTotalP; i++){
+        if(strcmp(c , p[i].code) == 0){
+
+        }
+        else{
+            printf("");
+        }
+    }
 }
 //Function quantiteP
 void quantiteP(){
@@ -299,7 +317,21 @@ void etatStock(){
 
 //Alimenter le stock
 void alimenterStock(){
-
+    int i,q=0;
+    char c[14];
+    printf("Entrez la Code Produit: ");
+    scanf("%s",c);
+    for(i=0; i<numTotalP; i++){
+        if(strcmp(c , p[i].code) == 0){
+            printf("Donnez le Quantite: ");
+            scanf("%d",&q);
+            p[i].quantite = p[i].quantite + q;
+            break;
+        }
+        else{
+            printf("Le code N'existe pas dans la liste des produit!");
+        }
+    }
 }
 
 
