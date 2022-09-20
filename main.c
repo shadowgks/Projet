@@ -17,8 +17,9 @@ struct produitVender{
 };
 
 int numTotalP = 0;
-int produitVender = 0;
+int produitV = 0;
 struct produit p[100];
+struct produitVender pV[100];
 
 
 //OperationProduits
@@ -32,7 +33,8 @@ void OperationProduits(){
         printf("4 - Afficher Les Produits\n");
         printf("5 - Trier Un Produit\n");
         printf("6 - Acheter le Produit\n");
-        printf("7 - Quitter De Programme\n");
+        printf("7 - Afficher le Produits Vender\n");
+        printf("8 - Quitter De Programme\n");
         scanf("%d",&OP);
 
         switch(OP){
@@ -61,13 +63,17 @@ void OperationProduits(){
                 acheterProduit();
                 break;
             case 7:
+                system("cls");
+                afficherVender();
+                break;
+            case 8:
                 printf("Au Revoire :)\n");
                 break;
             default:
             system("cls");
             printf("Choise Correcte Operation!!!\n");
         }
-    }while(OP != 7);
+    }while(OP != 8);
 
 }
 //ajouterProduits
@@ -86,7 +92,7 @@ void ajouterProduits(int N){
                     printf("Donnez Le Prix Produit: ");
                     scanf("%f",&p[numTotalP].prix);
                     p[numTotalP].prix += 0.15 * p[numTotalP].prix; //TTC 15%
-                    numTotalP ++;
+                    numTotalP++;
 
                 }else{
                     printf("Cette code a deja ete annonces!!!");
@@ -177,7 +183,6 @@ void acheterProduit(){
     char c[14];
 //    float Newprix=0;
     time_t currentTime;
-    struct produit pV[100];
     printf("Donnez Le Code Produit: ");
     scanf("%s",c);
     for(i=0; i<numTotalP; i++){
@@ -190,14 +195,16 @@ void acheterProduit(){
                     p[i].quantite -= N;
 
 
+                    //Copy info vendu to structure Vendu
+                    strcpy(pV[produitV].code, p[i].code);
+                    pV[produitV].quantite = p[i].quantite;
+
                     //time Acheter
                     time(&currentTime);
-                    strcpy(p[i].time , ctime(&currentTime));
+                    strcpy(pV[produitV].time , ctime(&currentTime));
+                    afficherVender();
+                    produitV++;
 
-                    //Afichage Acheter
-                    printf("\n\t\tPorduit\t\tCode\tQuantitie\t\tDate Acheter\n");
-                    printf("\t\t-------------------------------------------------------------------\n");
-                    printf("\t\t%d\t\t%s\t%d\t\t%s\n",i+1,p[i].code,p[i].quantite,p[i].time);
 
                 }else{
                     printf("La Quantite n'est pas suffisante\n");
@@ -207,6 +214,15 @@ void acheterProduit(){
        }
     }
 
+}
+//Afficher Vender
+void afficherVender(){
+    for(int i=0; i<produitV; i++){
+        //Afichage Acheter Vender
+        printf("\n\t\tPorduit\t\tCode\tQuantitie\t\tDate Acheter\n");
+        printf("\t\t-------------------------------------------------------------------\n");
+        printf("\t\t%d\t\t%s\t%d\t\t%s\n",i+1,pV[i].code,pV[i].quantite,pV[i].time);
+    }
 }
 
 //Recherche les Produits
@@ -280,6 +296,7 @@ void etatStock(){
         }
     }
 }
+
 //Alimenter le stock
 void alimenterStock(){
 
