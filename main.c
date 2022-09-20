@@ -358,14 +358,9 @@ void supprimerP(){
             }
         }
         for(int j=pos; j<numTotalP; j++){
-                strcpy(p[j].code , p[j + 1].code);
-                strcpy(p[j].nom , p[j + 1].nom);
-                p[j].quantite = p[j + 1].quantite;
-                p[j].prix = p[j + 1].quantite;
+            p[j] = p[j + 1];
         }
         numTotalP--;
-
-
 }
 int main()
 {
