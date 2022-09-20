@@ -67,18 +67,19 @@ void OperationProduits(){
 }
 //ajouterProduits
 void ajouterProduits(int N){
+    char c[14];
     //ajouter
     for(int i=numTotalP; i<N+numTotalP; i++){
-        printf("\nDonnez Le Code Produit: ");
-        scanf("%s",p[i].code);
-        printf("Donnez Le Nom Produit: ");
-        scanf("%s",p[i].nom); //Because Ineed Space
-        printf("Donnez Le Quantitie Produit: ");
-        scanf("%d",&p[i].quantite);
-        printf("Donnez Le Prix Produit: ");
-        scanf("%f",&p[i].prix);
-        p[i].prix += 0.15 * p[i].prix; //TTC 15%
-    }
+                printf("\nDonnez Le Code Produit: ");
+                scanf("%s",p[i].code);
+                printf("Donnez Le Nom Produit: ");
+                scanf("%s",p[i].nom); //Because Ineed Space
+                printf("Donnez Le Quantitie Produit: ");
+                scanf("%d",&p[i].quantite);
+                printf("Donnez Le Prix Produit: ");
+                scanf("%f",&p[i].prix);
+                p[i].prix += 0.15 * p[i].prix; //TTC 15%
+            }
     numTotalP += N;
 }
 //afficherProduit
@@ -149,7 +150,7 @@ void operationTrier(){
 void acheterProduit(){
     int N,count,i;
     char c[14];
-    float Newprix=0;
+//    float Newprix=0;
     time_t currentTime;
     struct produit pV[100];
     printf("Donnez Le Code Produit: ");
@@ -159,8 +160,8 @@ void acheterProduit(){
             printf("Donnez le nombre de ce produit qui a vendue: ");
             scanf("%d",&N);
                 if(N <= p[i].quantite){
-                    Newprix = (p[i].prix * N) / (p[i].quantite);
-                    p[i].prix -= Newprix;
+//                    Newprix = (p[i].prix * N) / (p[i].quantite);
+//                    p[i].prix -= Newprix;
                     p[i].quantite -= N;
 
 
@@ -189,7 +190,8 @@ void OperationRechercheProduits(){
     do{
     printf("1 - Recherche Par Code:\n");
     printf("2 - Recherche Par Quantite:\n");
-    printf("3 - Back! Menu\n");
+    printf("3 - Etat du Stock:\n");
+    printf("4 - Back! Menu\n");
     scanf("%d",&op);
 
         switch(op){
@@ -202,6 +204,10 @@ void OperationRechercheProduits(){
             quantiteP();
             break;
         case 3:
+            system("cls");
+            etatStock();
+            break;
+        case 4:
             system("cls");
             OperationProduits();
             break;
@@ -241,6 +247,13 @@ void quantiteP(){
     }
 }
 //Etat du stock
+void etatStock(){
+    for(int i=0; i<numTotalP; i++){
+        if(p[i].quantite < 3){
+            printf("Code: %s\nNom: %s\nQuantitie: %d\nPrix: %.2f\n",p[i].code,p[i].nom,p[i].quantite,p[i].prix);
+        }
+    }
+}
 
 
 int main()
