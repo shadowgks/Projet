@@ -28,47 +28,52 @@ void OperationProduits(){
     char c[14];
     do{
         printf("Choisir une operation:\n");
-        printf("1 - Ajouter Un Produit\n");
-        printf("2 - Rechercher Un Produit\n");
-        printf("3 - Supprimer Un Produit\n");
-        printf("4 - Afficher Les Produits\n");
-        printf("5 - Trier Un Produit\n");
-        printf("6 - Acheter le Produit\n");
-        printf("7 - Afficher le Produits Vender\n");
-        printf("8 - Quitter De Programme\n");
+        printf("1 - Ajouter Un Nouveau Produit\n");
+        printf("2 - Ajouter Un Produit\n");
+        printf("3 - Rechercher Un Produit\n");
+        printf("4 - Supprimer Un Produit\n");
+        printf("5 - Afficher Les Produits\n");
+        printf("6 - Trier Un Produit\n");
+        printf("7 - Acheter le Produit\n");
+        printf("8 - Afficher le Produits Vender\n");
+        printf("9 - Quitter De Programme\n");
         scanf("%d",&OP);
 
         switch(OP){
             case 1:
                 system("cls");
+                ajouterOneProduits();
+                break;
+            case 2:
+                system("cls");
                 printf("Combien de produits souhaitez-vous saisir ?: ");
                 scanf("%d",&N);
                 ajouterProduits(N);
                 break;
-            case 2:
+            case 3:
                 system("cls");
                 OperationRechercheProduits();
                 break;
-            case 3:
-                supprimerP();
-                break;
             case 4:
-                system("cls");
-                afficherProduit(N);
+                supprimerP();
                 break;
             case 5:
                 system("cls");
-                operationTrier();
+                afficherProduit(N);
                 break;
             case 6:
                 system("cls");
-                acheterProduit();
+                operationTrier();
                 break;
             case 7:
                 system("cls");
-                afficherVender();
+                acheterProduit();
                 break;
             case 8:
+                system("cls");
+                afficherVender();
+                break;
+            case 9:
                 system("cls");
                 printf("Au Revoire :)\n");
                 break;
@@ -76,31 +81,51 @@ void OperationProduits(){
             system("cls");
             printf("Choise Correcte Operation!!!\n");
         }
-    }while(OP != 8);
+    }while(OP != 9);
 
 }
-//ajouterProduits
+//ajouter one produit
+void ajouterOneProduits(){
+    //ajouter
+    printf("\nDonnez Le Code Produit: ");
+    scanf("%s",p[numTotalP].code);
+    //checkCode!
+    int test = checkCode(p[numTotalP].code);
+        if(test == 0){
+            printf("Donnez Le Nom Produit: ");
+            scanf("%s",p[numTotalP].nom); //Because Ineed Space
+            printf("Donnez Le Quantitie Produit: ");
+            scanf("%d",&p[numTotalP].quantite);
+            printf("Donnez Le Prix Produit: ");
+            scanf("%f",&p[numTotalP].prix);
+            p[numTotalP].prix += 0.15 * p[numTotalP].prix; //TTC 15%
+            numTotalP++;
+
+        }else{
+            printf("Cette code a deja ete annonces!!!");
+        }
+}
+//ajouterProduits Plussier
 void ajouterProduits(int N){
     //ajouter
     for(int i=0; i<N; i++){
-                printf("\nDonnez Le Code Produit: ");
-                scanf("%s",p[numTotalP].code);
-                //checkCode!
-                int test = checkCode(p[numTotalP].code);
-                if(test == 0){
-                    printf("Donnez Le Nom Produit: ");
-                    scanf("%s",p[numTotalP].nom); //Because Ineed Space
-                    printf("Donnez Le Quantitie Produit: ");
-                    scanf("%d",&p[numTotalP].quantite);
-                    printf("Donnez Le Prix Produit: ");
-                    scanf("%f",&p[numTotalP].prix);
-                    p[numTotalP].prix += 0.15 * p[numTotalP].prix; //TTC 15%
-                    numTotalP++;
-
-                }else{
-                    printf("Cette code a deja ete annonces!!!");
-                }
+        printf("\nDonnez Le Code Produit: ");
+        scanf("%s",p[numTotalP].code);
+        //checkCode!
+        int test = checkCode(p[numTotalP].code);
+        if(test == 0){
+            printf("Donnez Le Nom Produit: ");
+            scanf("%s",p[numTotalP].nom); //Because Ineed Space
+            printf("Donnez Le Quantitie Produit: ");
+            scanf("%d",&p[numTotalP].quantite);
+            printf("Donnez Le Prix Produit: ");
+            scanf("%f",&p[numTotalP].prix);
+            p[numTotalP].prix += 0.15 * p[numTotalP].prix; //TTC 15%
+            numTotalP++;
+        }else{
+            printf("Cette code a deja ete annonces!!!");
         }
+    }
 }
 
 //Check code
@@ -326,7 +351,6 @@ void supprimerP(){
     char c[14];
     printf("Entrez le code de l'element a Supprimer: ");
     scanf("%s",c);
-
         for(int i=0; i<numTotalP; i++){
             if(strcmp(c,p[i].code)==0){
                 pos = i;
