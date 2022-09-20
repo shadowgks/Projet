@@ -6,7 +6,7 @@
 //Structures Section
 struct produit{
     //Members
-    char code[14], nom[30], time[30];
+    char code[14], nom[30];
     int quantite;
     float prix;
 };
@@ -229,12 +229,13 @@ void acheterProduit(){
 
                     //Copy info vendu to structure Vendu
                     strcpy(pV[produitV].code, p[i].code);
-                    pV[produitV].quantite = p[i].quantite;
+                    pV[produitV].quantite = N;
 
                     //time Acheter
                     time(&currentTime);
                     strcpy(pV[produitV].time, ctime(&currentTime));
                     produitV++;
+                    break;
 
 
                 }else{
@@ -264,7 +265,8 @@ void OperationRechercheProduits(){
     printf("1 - Recherche Par Code:\n");
     printf("2 - Recherche Par Quantite:\n");
     printf("3 - Etat du Stock:\n");
-    printf("4 - Back! Menu\n");
+    printf("4 - Alimenter le Stock\n");
+    printf("5 - Back! Menu\n");
     scanf("%d",&op);
 
         switch(op){
@@ -370,6 +372,10 @@ void supprimerP(){
         }
         numTotalP--;
 }
+
+//Statistique de vente
+//total des prix des produits vendus
+
 
 //Main
 int main()
