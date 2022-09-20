@@ -25,6 +25,7 @@ struct produitVender pV[100];
 //OperationProduits
 void OperationProduits(){
     int N,OP;
+    char c[14];
     do{
         printf("Choisir une operation:\n");
         printf("1 - Ajouter Un Produit\n");
@@ -49,6 +50,7 @@ void OperationProduits(){
                 OperationRechercheProduits();
                 break;
             case 3:
+                supprimerP();
                 break;
             case 4:
                 system("cls");
@@ -195,7 +197,6 @@ void acheterProduit(){
 //                    p[i].prix -= Newprix;
                     p[i].quantite -= N;
 
-
                     //Copy info vendu to structure Vendu
                     strcpy(pV[produitV].code, p[i].code);
                     pV[produitV].quantite = p[i].quantite;
@@ -203,7 +204,6 @@ void acheterProduit(){
                     //time Acheter
                     time(&currentTime);
                     strcpy(pV[produitV].time , ctime(&currentTime));
-                    afficherVender();
                     produitV++;
 
 
@@ -218,9 +218,9 @@ void acheterProduit(){
 }
 //Afficher Vender
 void afficherVender(){
+    printf("\n\t\tPorduit\t\tCode\tQuantitie\t\tDate Acheter\n");
     for(int i=0; i<produitV; i++){
         //Afichage Acheter Vender
-        printf("\n\t\tPorduit\t\tCode\tQuantitie\t\tDate Acheter\n");
         printf("\t\t-------------------------------------------------------------------\n");
         printf("\t\t%d\t\t%s\t%d\t\t%s\n",i+1,pV[i].code,pV[i].quantite,pV[i].time);
     }
@@ -281,20 +281,7 @@ void codeP(){
     }
 
 }
-void supprimerPrduite(){
-    int i;
-    char c[14];
-    printf("Entrez la Code Produit: ");
-    scanf("%s",c);
-    for(i=0; i<numTotalP; i++){
-        if(strcmp(c , p[i].code) == 0){
 
-        }
-        else{
-            printf("");
-        }
-    }
-}
 //Function quantiteP
 void quantiteP(){
     int i,q;
@@ -333,8 +320,29 @@ void alimenterStock(){
         }
     }
 }
+//Supprimer la produit
+void supprimerP(){
+    int pos=0;
+    char c[14];
+    printf("Entrez le code de l'element a Supprimer: ");
+    scanf("%s",c);
+
+        for(int i=0; i<numTotalP; i++){
+            if(strcmp(c,p[i].code)==0){
+                pos = i;
+                break;
+            }
+        }
+        for(int j=pos; j<numTotalP; j++){
+                strcpy(p[j].code , p[j + 1].code);
+                strcpy(p[j].nom , p[j + 1].nom);
+                p[j].quantite = p[j + 1].quantite;
+                p[j].prix = p[j + 1].quantite;
+        }
+        numTotalP--;
 
 
+}
 int main()
 {
     OperationProduits();
