@@ -10,8 +10,14 @@ struct produit{
     int quantite;
     float prix;
 };
+struct produitVender{
+    //Members
+    char code[14], time[30];
+    int quantite;
+};
 
 int numTotalP = 0;
+int produitVender = 0;
 struct produit p[100];
 
 
@@ -58,10 +64,9 @@ void OperationProduits(){
                 printf("Au Revoire :)\n");
                 break;
             default:
-                system("cls");
-                printf("Numero de Operation Pas Correct!!!\n");
+            system("cls");
+            printf("Choise Correcte Operation!!!\n");
         }
-
     }while(OP != 7);
 
 }
@@ -159,6 +164,9 @@ void operationTrier(){
             system("cls");
             OperationProduits();
             break;
+        default:
+            system("cls");
+            printf("Choise Correcte Operation!!!\n");
     }
     }while(op != 3);
 }
@@ -229,9 +237,10 @@ void OperationRechercheProduits(){
             OperationProduits();
             break;
         default:
-            printf("Choise Correcte Operation!!!");
+            system("cls");
+            printf("Choise Correcte Operation!!!\n");
         }
-    }while(op != 3);
+    }while(op != 4);
 
 }
 
@@ -279,7 +288,6 @@ void alimenterStock(){
 
 int main()
 {
-
     OperationProduits();
     return 0;
 }
