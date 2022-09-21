@@ -14,10 +14,11 @@ struct produitVender{
     //Members
     char code[14], time[30];
     int quantite;
+    float prix;
 };
 
 int numTotalP = 0;
-int produitV = 0;
+int produitV = 0, produitVQ = 0;
 struct produit p[100];
 struct produitVender pV[100];
 
@@ -37,7 +38,8 @@ void OperationProduits(){
         printf("7 - Acheter le Produit\n");
         printf("8 - Afficher le Produits Vender\n");
         printf("9 - Total Prix Vendus\n");
-        printf("10 - Quitter De Programme\n");
+        printf("10 - Moyenne Prix Vendus\n");
+        printf("11 - Quitter De Programme\n");
         scanf("%d",&OP);
 
         switch(OP){
@@ -80,13 +82,17 @@ void OperationProduits(){
                 break;
             case 10:
                 system("cls");
+                prixMoyenneVendus();
+                break;
+            case 11:
+                system("cls");
                 printf("Au Revoire :)\n");
                 break;
             default:
             system("cls");
             printf("Choise Correcte Operation!!!\n");
         }
-    }while(OP != 10);
+    }while(OP != 11);
 }
 
 //ajouter one produit
@@ -129,7 +135,7 @@ void ajouterProduits(int N){
             p[numTotalP].prix += 0.15 * p[numTotalP].prix; //TTC 15%
             numTotalP++;
         }else{
-            printf("Cette code a deja ete annonces!!!");
+            printf("Cette code a deja ete annonces!!!\n");
         }
     }
 }
@@ -219,12 +225,14 @@ void operationTrier(){
 void acheterProduit(){
     int N,count,i;
     char c[14];
+    int test = 0;
 //    float Newprix=0;
     time_t currentTime;
     printf("Donnez Le Code Produit: ");
     scanf("%s",c);
     for(i=0; i<numTotalP; i++){
        if(strcmp(c,p[i].code) == 0){ // c == code return value 0
+            test = 1;
             printf("Donnez le nombre de ce produit qui a vendue: ");
             scanf("%d",&N);
                 if(N <= p[i].quantite){
@@ -235,6 +243,8 @@ void acheterProduit(){
                     //Copy info vendu to structure Vendu
                     strcpy(pV[produitV].code, p[i].code);
                     pV[produitV].quantite = N;
+                    produitVQ += N;
+                    pV[produitV].prix = N * p[i].prix;
 
                     //time Acheter
                     time(&currentTime);
@@ -242,24 +252,24 @@ void acheterProduit(){
                     produitV++;
                     break;
 
-
                 }else{
                     printf("La Quantite n'est pas suffisante\n");
                 }
-       }else{
-            printf("Le code N'existe pas dans la liste des produit\n");
        }
+    }
+    if(test == 0){
+            printf("Le code N'existe pas dans la liste des produit\n");
     }
 
 }
 
 //Afficher Vender
 void afficherVender(){
-    printf("\n\t\tPorduit\t\tCode\tQuantitie\t\tDate Acheter\n");
+    printf("\n\t\tPorduit\t\tCode\tQuantitie\tPrix\t\tDate Acheter\n");
     for(int i=0; i<produitV; i++){
         //Afichage Acheter Vender
-        printf("\t\t-------------------------------------------------------------------\n");
-        printf("\t\t%d\t\t%s\t%d\t\t%s\n",i+1,pV[i].code,pV[i].quantite,pV[i].time);
+        printf("\t\t---------------------------------------------------------------------------\n");
+        printf("\t\t%d\t\t%s\t%d\t\t%.2f\t\t%s\n",i+1,pV[i].code,pV[i].quantite,pV[i].prix,pV[i].time);
     }
 }
 
@@ -304,98 +314,123 @@ void OperationRechercheProduits(){
 
 //Function codeP
 void codeP(){
-    int i;
+    int i,test = 0;
     char c[14];
     printf("Entrez la Code Produit: ");
     scanf("%s",c);
     for(i=0; i<numTotalP; i++){
         if(strcmp(c , p[i].code) == 0){
+            test = 1;
             printf("Code: %s\nNom: %s\nQuantitie: %d\nPrix: %.2f\n",p[i].code,p[i].nom,p[i].quantite,p[i].prix);
             break;
         }
-        else{
-            printf("Le code N'existe pas dans la liste des produit!");
-        }
-    }
 
+    }
+    if(test == 0){
+        printf("Le code N'existe pas dans la liste des produit!");
+    }
 }
 
 //Function quantiteP
 void quantiteP(){
-    int i,q;
+    int i,q,test = 0;
     printf("Entrez la Quantite Produit: ");
     scanf("%d",&q);
     for(i=0; i<numTotalP; i++){
         if(q == p[i].quantite){
+            test = 1;
             printf("Code: %s\nNom: %s\nQuantitie: %d\nPrix: %.2f\n",p[i].code,p[i].nom,p[i].quantite,p[i].prix);
         }
+    }
+    if(test == 0){
+        printf("Le quantite N'existe pas dans la liste des produit!");
     }
 }
 
 //Etat du stock
 void etatStock(){
+    int test = 0;
     for(int i=0; i<numTotalP; i++){
         if(p[i].quantite < 3){
+            test = 1;
             printf("Code: %s\nNom: %s\nQuantitie: %d\nPrix: %.2f\n",p[i].code,p[i].nom,p[i].quantite,p[i].prix);
         }
+    }
+    if(test == 0){
+        printf("pas trouvé!!!\n");
     }
 }
 
 //Alimenter le stock
 void alimenterStock(){
-    int i,q=0;
+    int i,q,test=0;
     char c[14];
     printf("Entrez la Code Produit: ");
     scanf("%s",c);
     for(i=0; i<numTotalP; i++){
         if(strcmp(c , p[i].code) == 0){
+            test = 1;
             printf("Donnez le Quantite: ");
             scanf("%d",&q);
-            p[i].quantite = p[i].quantite + q;
+            p[i].quantite += q;
             break;
         }
-        else{
-            printf("Le code N'existe pas dans la liste des produit!");
-        }
     }
+    if(test == 0){
+        printf("Le code N'existe pas dans la liste des produit!!!\n");
+    }
+
 }
 
 //Supprimer la produit
 void supprimerP(){
-    int pos=0;
+    int test = 0;
     char c[14];
     printf("Entrez le code de l'element a Supprimer: ");
     scanf("%s",c);
         for(int i=0; i<numTotalP; i++){
             if(strcmp(c,p[i].code)==0){
-                pos = i;
-                break;
+                test = 1;
+                p[i] = p[i + 1];
+                numTotalP--;
             }
         }
-        for(int j=pos; j<numTotalP; j++){
-            p[j] = p[j + 1];
+
+        if(test == 0){
+            printf("Le code N'existe pas dans la liste des produit!!!\n");
         }
-        numTotalP--;
 }
 
 //Statistique de vente
 //total des prix des produits vendus
 void prixTotalVendus(){
-    float prixTotal = 1;
+    float prixTotal = 0;
     if(produitV > 0){
-
         for(int i=0; i<produitV; i++){
-            if(strcmp(pV[i].code,p[i].code)==0){
-              prixTotal +=  pV[i].quantite * p[i].prix;
-            }
+              prixTotal +=  pV[i].prix;
         }
-        printf("Total Prix Vendus: %.2f",prixTotal);
+        printf("Total Prix Vendus: %.2f\n",prixTotal);
 
     }else{
-        printf("Prix Vendus Vide!!!");
+        printf("Prix Vendus Vide!!!\n");
     }
-
 }
+//Moyenne des prix des produits vendus
+void prixMoyenneVendus(){
+    float prixTotal = 0;
+    float prixMT = 0;
+    if(produitV >= 0){
+        for(int i=0; i<produitV; i++){
+              prixTotal +=  pV[i].prix;
+              prixMT = prixTotal / produitVQ;
+        }
+        printf("Moyenne Prix Vendus: %.2f\n",prixMT);
+
+    }else{
+        printf("Prix Vendus Vide!!!\n");
+    }
+}
+
 
 
 //Main
