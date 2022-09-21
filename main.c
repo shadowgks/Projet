@@ -23,6 +23,7 @@ struct produit p[100];
 struct produitVender pV[100];
 
 
+
 //OperationProduits
 void OperationProduits(){
     int N,OP;
@@ -39,7 +40,9 @@ void OperationProduits(){
         printf("8 - Afficher le Produits Vender\n");
         printf("9 - Total Prix Vendus\n");
         printf("10 - Moyenne Prix Vendus\n");
-        printf("11 - Quitter De Programme\n");
+        printf("11 - Max Prix Vendus\n");
+        printf("12 - Min Prix Vendus\n");
+        printf("13 - Quitter De Programme\n");
         scanf("%d",&OP);
 
         switch(OP){
@@ -86,13 +89,21 @@ void OperationProduits(){
                 break;
             case 11:
                 system("cls");
+                prixMaxVendus();
+                break;
+            case 12:
+                system("cls");
+                prixMinVendus()
+                break;
+            case 13:
+                system("cls");
                 printf("Au Revoire :)\n");
                 break;
             default:
             system("cls");
             printf("Choise Correcte Operation!!!\n");
         }
-    }while(OP != 11);
+    }while(OP != 13);
 }
 
 //ajouter one produit
@@ -223,7 +234,7 @@ void operationTrier(){
 
 //Function mettre à jour la quantité après avoir introduit le code produit
 void acheterProduit(){
-    int N,count,i;
+    int N,i;
     char c[14];
     int test = 0;
 //    float Newprix=0;
@@ -236,14 +247,13 @@ void acheterProduit(){
             printf("Donnez le nombre de ce produit qui a vendue: ");
             scanf("%d",&N);
                 if(N <= p[i].quantite){
-//                    Newprix = (p[i].prix * N) / (p[i].quantite);
-//                    p[i].prix -= Newprix;
                     p[i].quantite -= N;
 
-                    //Copy info vendu to structure Vendu
+                    //Copy info produit to structure produitVendu
                     strcpy(pV[produitV].code, p[i].code);
                     pV[produitV].quantite = N;
-                    produitVQ += N;
+                    produitVQ += N; //somme produitVendus
+
                     pV[produitV].prix = N * p[i].prix;
 
                     //time Acheter
@@ -324,7 +334,6 @@ void codeP(){
             printf("Code: %s\nNom: %s\nQuantitie: %d\nPrix: %.2f\n",p[i].code,p[i].nom,p[i].quantite,p[i].prix);
             break;
         }
-
     }
     if(test == 0){
         printf("Le code N'existe pas dans la liste des produit!");
@@ -415,11 +424,12 @@ void prixTotalVendus(){
         printf("Prix Vendus Vide!!!\n");
     }
 }
+
 //Moyenne des prix des produits vendus
 void prixMoyenneVendus(){
     float prixTotal = 0;
     float prixMT = 0;
-    if(produitV >= 0){
+    if(produitV > 0){
         for(int i=0; i<produitV; i++){
               prixTotal +=  pV[i].prix;
               prixMT = prixTotal / produitVQ;
@@ -431,6 +441,44 @@ void prixMoyenneVendus(){
     }
 }
 
+//Max des prix des produits vendus
+void prixMaxVendus(){
+    int i,j;
+    float prixMax;
+
+    for(i=0; i<produitV-1; i++){
+        for(j=i+1; j<produitV; j++){
+            if(pV[i].prix < pV[j].prix){
+                prixMax = pV[i].prix;
+                pV[i].prix = pV[j].prix;
+                pV[j].prix = prixMax;
+            }
+        }
+    }
+printf("Prix Max est: %.2f\n",pV[0].prix);
+
+}
+
+//Min des prix des produits vendus
+void prixMinVendus(){
+
+    void prixMaxVendus(){
+    int i,j;
+    float prixMax;
+
+    for(i=0; i<produitV-1; i++){
+        for(j=i+1; j<produitV; j++){
+            if(pV[i].prix < pV[j].prix){
+                prixMax = pV[i].prix;
+                pV[i].prix = pV[j].prix;
+                pV[j].prix = prixMax;
+            }
+        }
+    }
+    printf("Prix Max est: %.2f\n",pV[produitV - 1].prix);
+
+}
+}
 
 
 //Main
