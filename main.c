@@ -29,7 +29,8 @@ void OperationProduits(){
     int N,OP;
     char c[14];
     do{
-        printf("Choisir une operation:\n");
+        puts("\n____________Menu____________");
+        printf("\nChoisir une operation:\n");
         printf("1 - Ajouter Un Nouveau Produit\n");
         printf("2 - Ajouter Un Produit\n");
         printf("3 - Rechercher Un Produit\n");
@@ -93,7 +94,7 @@ void OperationProduits(){
                 break;
             case 12:
                 system("cls");
-                prixMinVendus()
+                prixMinVendus();
                 break;
             case 13:
                 system("cls");
@@ -252,7 +253,7 @@ void acheterProduit(){
                     //Copy info produit to structure produitVendu
                     strcpy(pV[produitV].code, p[i].code);
                     pV[produitV].quantite = N;
-                    produitVQ += N; //somme produitVendus
+                    produitVQ += N; //total quantitie produitVendus
 
                     pV[produitV].prix = N * p[i].prix;
 
@@ -287,9 +288,9 @@ void afficherVender(){
 void OperationRechercheProduits(){
     int op;
     do{
-    printf("1 - Recherche Par Code:\n");
-    printf("2 - Recherche Par Quantite:\n");
-    printf("3 - Etat du Stock:\n");
+    printf("1 - Recherche Par Code\n");
+    printf("2 - Recherche Par Quantite\n");
+    printf("3 - Etat du Stock\n");
     printf("4 - Alimenter le Stock\n");
     printf("5 - Back! Menu\n");
     scanf("%d",&op);
@@ -349,6 +350,7 @@ void quantiteP(){
         if(q == p[i].quantite){
             test = 1;
             printf("Code: %s\nNom: %s\nQuantitie: %d\nPrix: %.2f\n",p[i].code,p[i].nom,p[i].quantite,p[i].prix);
+            break;
         }
     }
     if(test == 0){
@@ -363,6 +365,7 @@ void etatStock(){
         if(p[i].quantite < 3){
             test = 1;
             printf("Code: %s\nNom: %s\nQuantitie: %d\nPrix: %.2f\n",p[i].code,p[i].nom,p[i].quantite,p[i].prix);
+            break;
         }
     }
     if(test == 0){
@@ -381,8 +384,8 @@ void alimenterStock(){
             test = 1;
             printf("Donnez le Quantite: ");
             scanf("%d",&q);
-            p[i].quantite += q;
-            break;
+                p[i].quantite += q;
+                break;
         }
     }
     if(test == 0){
@@ -402,6 +405,7 @@ void supprimerP(){
                 test = 1;
                 p[i] = p[i + 1];
                 numTotalP--;
+                break;
             }
         }
 
@@ -455,29 +459,28 @@ void prixMaxVendus(){
             }
         }
     }
-printf("Prix Max est: %.2f\n",pV[0].prix);
+    printf("Prix Max est: %.2f\n",pV[0].prix);
 
 }
 
 //Min des prix des produits vendus
 void prixMinVendus(){
 
-    void prixMaxVendus(){
     int i,j;
-    float prixMax;
+    float prixMin;
 
     for(i=0; i<produitV-1; i++){
         for(j=i+1; j<produitV; j++){
-            if(pV[i].prix < pV[j].prix){
-                prixMax = pV[i].prix;
+            if(pV[i].prix > pV[j].prix){
+                prixMin = pV[i].prix;
                 pV[i].prix = pV[j].prix;
-                pV[j].prix = prixMax;
+                pV[j].prix = prixMin;
             }
         }
     }
-    printf("Prix Max est: %.2f\n",pV[produitV - 1].prix);
+    printf("Prix Min est: %.2f\n",pV[0].prix);
 
-}
+
 }
 
 
