@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include <windows.h>
 
 //Structures Section
 struct produit{
@@ -28,6 +29,7 @@ void OperationProduits(){
     int N,OP;
     char c[14];
     do{
+        system("COLOR 2");
         puts("\n____________Menu____________");
         printf("\nChoisir une operation:\n");
         printf("1 - Ajouter Un Nouveau Produit\n");
@@ -59,6 +61,7 @@ void OperationProduits(){
                 OperationRechercheProduits();
                 break;
             case 4:
+                system("cls");
                 supprimerP();
                 break;
             case 5:
@@ -98,6 +101,7 @@ void OperationProduits(){
                 printf("Au Revoire :)\n");
                 break;
             default:
+            system("COLOR 4");
             system("cls");
             printf("Choise Correcte Operation!!!\n");
         }
@@ -109,20 +113,14 @@ void ajouterOneProduits(){
     //ajouter
     printf("\nDonnez Le Code Produit: ");
     scanf("%s",p[numTotalP].code);
-    //checkCode!
-    int test = checkCode(p[numTotalP].code);
-        if(test == 0){
-            printf("Donnez Le Nom Produit: ");
-            scanf("%s",p[numTotalP].nom); //Because Ineed Space
-            printf("Donnez Le Quantitie Produit: ");
-            scanf("%d",&p[numTotalP].quantite);
-            printf("Donnez Le Prix Produit: ");
-            scanf("%f",&p[numTotalP].prix);
-            p[numTotalP].prix += 0.15 * p[numTotalP].prix; //TTC 15%
-            numTotalP++;
-        }else{
-            printf("Cette code a deja ete annonces!!!");
-        }
+    printf("Donnez Le Nom Produit: ");
+    scanf("%s",p[numTotalP].nom); //Because Ineed Space
+    printf("Donnez Le Quantitie Produit: ");
+    scanf("%d",&p[numTotalP].quantite);
+    printf("Donnez Le Prix Produit: ");
+    scanf("%f",&p[numTotalP].prix);
+    p[numTotalP].prix += 0.15 * p[numTotalP].prix; //TTC 15%
+    numTotalP++;
 }
 
 //ajouterProduits Plussier
@@ -134,33 +132,15 @@ void ajouterProduits(){
     for(int i=0; i<N; i++){
         printf("\nDonnez Le Code Produit: ");
         scanf("%s",p[numTotalP].code);
-        //checkCode!
-        int test = checkCode(p[numTotalP].code);
-        if(test == 0){
-            printf("Donnez Le Nom Produit: ");
-            scanf("%s",p[numTotalP].nom); //Because Ineed Space
-            printf("Donnez Le Quantitie Produit: ");
-            scanf("%d",&p[numTotalP].quantite);
-            printf("Donnez Le Prix Produit: ");
-            scanf("%f",&p[numTotalP].prix);
-            p[numTotalP].prix += 0.15 * p[numTotalP].prix; //TTC 15%
-            numTotalP++;
-        }else{
-            printf("Cette code a deja ete annonces!!!\n");
+        printf("Donnez Le Nom Produit: ");
+        scanf("%s",p[numTotalP].nom); //Because Ineed Space
+        printf("Donnez Le Quantitie Produit: ");
+        scanf("%d",&p[numTotalP].quantite);
+        printf("Donnez Le Prix Produit: ");
+        scanf("%f",&p[numTotalP].prix);
+        p[numTotalP].prix += 0.15 * p[numTotalP].prix; //TTC 15%
+        numTotalP++;
         }
-    }
-}
-
-//Check code
-int checkCode(char c[]){
-    int i,test = 0;
-    for(i=0; i<numTotalP; i++){
-        if(strcmp(c , p[i].code) == 0){
-            test++;
-            break;
-        }
-    }
-    return test;
 }
 
 //afficherProduit
@@ -227,6 +207,7 @@ void operationTrier(){
             OperationProduits();
             break;
         default:
+            system("COLOR 4");
             system("cls");
             printf("Choise Correcte Operation!!!\n");
     }
@@ -264,11 +245,13 @@ void acheterProduit(){
                     break;
 
                 }else{
+                    system("COLOR 4");
                     printf("La Quantite n'est pas suffisante\n");
                 }
        }
     }
     if(test == 0){
+            system("COLOR 4");
             printf("Le code N'existe pas dans la liste des produit\n");
     }
 
@@ -316,6 +299,7 @@ void OperationRechercheProduits(){
             OperationProduits();
             break;
         default:
+            system("COLOR 4");
             system("cls");
             printf("Choise Correcte Operation!!!\n");
         }
@@ -337,6 +321,7 @@ void codeP(){
         }
     }
     if(test == 0){
+        system("COLOR 4");
         printf("Le code N'existe pas dans la liste des produit!");
     }
 }
@@ -354,6 +339,7 @@ void quantiteP(){
         }
     }
     if(test == 0){
+        system("COLOR 4");
         printf("Le quantite N'existe pas dans la liste des produit!");
     }
 }
@@ -369,6 +355,7 @@ void etatStock(){
         }
     }
     if(test == 0){
+        system("COLOR 4");
         printf("pas trouvé!!!\n");
     }
 }
@@ -389,6 +376,7 @@ void alimenterStock(){
         }
     }
     if(test == 0){
+        system("COLOR 4");
         printf("Le code N'existe pas dans la liste des produit!!!\n");
     }
 
@@ -410,6 +398,7 @@ void supprimerP(){
         }
 
         if(test == 0){
+            system("COLOR 4");
             printf("Le code N'existe pas dans la liste des produit!!!\n");
         }
 }
@@ -425,6 +414,7 @@ void prixTotalVendus(){
         printf("Total Prix Vendus: %.2f\n",prixTotal);
 
     }else{
+        system("COLOR 4");
         printf("Prix Vendus Vide!!!\n");
     }
 }
@@ -438,9 +428,10 @@ void prixMoyenneVendus(){
               prixTotal +=  pV[i].prix;
               prixM = prixTotal / produitVQ;
         }
-        printf("Moyenne Prix Vendus: %.2f\n",prixMT);
+        printf("Moyenne Prix Vendus: %.2f\n",prixM);
 
     }else{
+        system("COLOR 4");
         printf("Prix Vendus Vide!!!\n");
     }
 }
@@ -479,8 +470,6 @@ void prixMinVendus(){
         }
     }
     printf("Prix Min est: %.2f\n",pV[0].prix);
-
-
 }
 
 
