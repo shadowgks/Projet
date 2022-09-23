@@ -4,10 +4,11 @@
 	<stdlib.h>
 	<string.h>
 
-1663799878 source:c:\users\conan k\documents\projet\main.c
+1663924754 source:c:\users\conan k\documents\projet\main.c
 	<stdio.h>
 	<string.h>
 	<time.h>
+	<windows.h>
 
 1663834261 source:c:\users\youcode\desktop\projet\main.c
 	<stdio.h>

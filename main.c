@@ -110,37 +110,59 @@ void OperationProduits(){
 
 //ajouter one produit
 void ajouterOneProduits(){
-    //ajouter
     printf("\nDonnez Le Code Produit: ");
     scanf("%s",p[numTotalP].code);
-    printf("Donnez Le Nom Produit: ");
-    scanf("%s",p[numTotalP].nom); //Because Ineed Space
-    printf("Donnez Le Quantitie Produit: ");
-    scanf("%d",&p[numTotalP].quantite);
-    printf("Donnez Le Prix Produit: ");
-    scanf("%f",&p[numTotalP].prix);
-    p[numTotalP].prix += 0.15 * p[numTotalP].prix; //TTC 15%
-    numTotalP++;
+    //ajouter
+    //checkCode!
+        int test = checkCode(p[numTotalP].code);
+        if(test == 0){
+            printf("Donnez Le Nom Produit: ");
+            scanf("%s",p[numTotalP].nom); //Because Ineed Space
+            printf("Donnez Le Quantitie Produit: ");
+            scanf("%d",&p[numTotalP].quantite);
+            printf("Donnez Le Prix Produit: ");
+            scanf("%f",&p[numTotalP].prix);
+            p[numTotalP].prix += 0.15 * p[numTotalP].prix; //TTC 15%
+            numTotalP++;
+        }else{
+            printf("Cette code a deja ete annonces!!!\n");
+        }
 }
 
 //ajouterProduits Plussier
 void ajouterProduits(){
     int N;
     //ajouter
-    printf("Combien de produits souhaitez-vous saisir ?: ");
-    scanf("%d",&N);
     for(int i=0; i<N; i++){
         printf("\nDonnez Le Code Produit: ");
         scanf("%s",p[numTotalP].code);
-        printf("Donnez Le Nom Produit: ");
-        scanf("%s",p[numTotalP].nom); //Because Ineed Space
-        printf("Donnez Le Quantitie Produit: ");
-        scanf("%d",&p[numTotalP].quantite);
-        printf("Donnez Le Prix Produit: ");
-        scanf("%f",&p[numTotalP].prix);
-        p[numTotalP].prix += 0.15 * p[numTotalP].prix; //TTC 15%
-        numTotalP++;
+        //checkCode!
+        int test = checkCode(p[numTotalP].code);
+        if(test == 0){
+            printf("Donnez Le Nom Produit: ");
+            scanf("%s",p[numTotalP].nom); //Because Ineed Space
+            printf("Donnez Le Quantitie Produit: ");
+            scanf("%d",&p[numTotalP].quantite);
+            printf("Donnez Le Prix Produit: ");
+            scanf("%f",&p[numTotalP].prix);
+            p[numTotalP].prix += 0.15 * p[numTotalP].prix; //TTC 15%
+            numTotalP++;
+        }else{
+            printf("Cette code a deja ete annonces!!!\n");
         }
+    }
+}
+
+//Check code
+int checkCode(char c[]){
+    int i,test = 0;
+    for(i=0; i<numTotalP; i++){
+        if(strcmp(c , p[i].code) == 0){
+            test++;
+            break;
+        }
+    }
+    return test;
 }
 
 //afficherProduit
